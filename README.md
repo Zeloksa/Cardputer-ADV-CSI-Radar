@@ -40,9 +40,10 @@
 * **[ D ]**: Toggle Web Server & IP Overlay.
 * **[ R ]**: Toggle 1D Graph / 2D Spatial Mode.
 * **[ H ]**: **MAX Mode** (333Hz / 240MHz CPU) / AUTO Mode.
-  > [!TIP]
-  > **MAX Mode** significantly increases detection precision and resolution by hitting 200+ PPS. 
-  > *Warning: This mode results in faster battery drain and slight device heating due to high CPU and Wi-Fi load.*
+
+> [!TIP]
+> **MAX Mode** significantly increases detection precision and resolution by hitting 200+ PPS.
+> *Warning: This mode results in faster battery drain and slight device heating due to high CPU and Wi-Fi load.*
 * **[ , / . ]**: Manual Frequency (Hz) Adjustment.
 * **[ W / S ]**: Volume Control.
 * **[ [ / ] ]**: Screen Brightness.
