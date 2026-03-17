@@ -19,7 +19,7 @@
 
 ## 🛠 Installation
 1. Open **M5Burner**.
-2. Search for `CSI Radar` or `Zeloksa`.
+2. Search for `WiFi CSI Radar` or `Zeloksa`.
 3. Select version **V1.42 ADV**.
 4. Burn to your M5Stack Cardputer.
 
