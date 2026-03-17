@@ -1,3 +1,8 @@
+![Version](https://img.shields.io/badge/Version-1.42_ADV-blue)
+![Hardware](https://img.shields.io/badge/Hardware-Cardputer-orange)
+![Platform](https://img.shields.io/badge/Platform-M5Stack-red)
+![License](https://img.shields.io/badge/License-Proprietary-gray)
+[![Boosty](https://img.shields.io/badge/Support-Boosty-orange)](https://boosty.to/zeloksa)
 # 📡 WiFi CSI Radar ADV (V1.42)
 
 **Radar V1.42 ADV** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer ADV**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
