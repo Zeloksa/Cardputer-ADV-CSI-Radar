@@ -14,11 +14,16 @@
 ---
 
 ## ⚡ Technical Highlights
-* **Dual-Core Architecture:** Networking/Injection handled on Core 0, Math/UI on Core 1 for zero-lag performance.
-* **200+ PPS (Packets Per Second):** Achieving the physical limit of the 2.4GHz Wi-Fi stack for high-fidelity sensing.
-* **External NAT Bypass:** Custom injection engine that bypasses router flood protection for stable tracking.
-* **2D Spatial Profiles:** Train up to 21 unique spatial zones for advanced environment monitoring.
-* **Smart Power Management (New in V1.42):** Intelligent noise filtering for charging detection and manual wake-up protocols.
+
+* **Dual-Core FreeRTOS Architecture:** Networking and high-speed injection are handled on Core 0, while heavy Math and UI rendering run on Core 1 for zero-lag, real-time sensing.
+* **Ultra-Precise 1D Sensing Core:** The original and most accurate engine. Specifically tuned for high-fidelity motion detection, capable of sensing subtle movements (like breathing or micro-vibrations) through walls.
+* **Hybrid Room Mapping (SLAM):** Integrated logic using the onboard IMU to create a digital layout of your room. This allows for localized tracking within a mapped environment.
+* **Experimental 2D Spatial Profiles:** Support for training up to 21 unique spatial zones. 
+  > [!NOTE]
+  > 2D Mode is currently in **Active Beta**. Accuracy is being refined, and I am actively looking for algorithmic suggestions and community feedback to improve spatial triangulation.
+* **200+ PPS (Packets Per Second):** Achieving the physical limit of the 2.4GHz Wi-Fi stack. Higher PPS equals higher resolution data for motion analysis.
+* **External NAT Bypass:** A custom injection engine that routes traffic through external DNS targets to bypass router flood protection and rate-limiting.
+* **ADV Smart Power Management:** Intelligent noise filtering for charging detection (10s verification) and manual wake-up protocols to prevent interference during high-load sensing.
 
 ---
 
