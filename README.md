@@ -1,4 +1,4 @@
-# 📡 Cardputer ADV CSI Radar (V1.42)
+# 📡 WiFi CSI Radar ADV (V1.42)
 
 **Radar V1.42 ADV** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer ADV**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
 
@@ -19,7 +19,7 @@
 
 ## 🛠 Installation
 1. Open **M5Burner**.
-2. Search for `WiFi CSI Radar` or `Zeloksa`.
+2. Search for `WiFi CSI Radar ADV` or `Zeloksa`.
 3. Select version **V1.42 ADV**.
 4. Burn to your M5Stack Cardputer.
 
