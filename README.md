@@ -54,7 +54,7 @@ If you find a bug or have a suggestion for the next version:
 
 ## ☕ Support the Project
 If this tool has been useful for your research or hobbyist projects, consider supporting further development:
-* **[]**
+* **[https://boosty.to/zeloksa]**
 
 ---
 *Created by Zeloksa. Optimized for Cardputer ADV.*
