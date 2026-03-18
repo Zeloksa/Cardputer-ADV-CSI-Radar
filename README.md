@@ -58,11 +58,14 @@ This is the default mode. It acts as an ultra-sensitive invisible tripwire.
 
 ### 🗺️ 2D Mode: Spatial Profiles (Active Beta)
 This mode attempts to locate *where* the movement is happening using the Web UI.
-1. Switch to 2D Mode by pressing `[ R ]`.
+1. Switch to **2D Mode** by pressing `[ R ]`.
 2. Press `[ D ]` to enable the Web Server and note the IP address on the screen. Open this IP in your smartphone or PC browser.
-3. **Train the Void (Crucial):** In the Web UI, click **TRAIN EMPTY**. **Everyone must immediately leave the room** for 7 seconds. The radar must memorize the completely empty room (Zone 20).
-4. **Train the Corners:** Once the room is memorized, stand in the Top-Left (TL) corner of the room with your phone. Click `TL Corner` in the UI and stand perfectly still. Repeat this for all 4 corners. 
-5. The red dot on the Web UI will now attempt to interpolate your physical position based on these anchors.
+3. **Train the Void (Crucial):** In the Web UI, click **TRAIN EMPTY**. **Everyone must immediately leave the room** for 7 seconds. The radar must memorize the completely empty room baseline (Profile 20).
+4. **Train the Corners (5-Step Profiling):** The radar needs to learn your Wi-Fi reflection from multiple angles. Go to the Top-Left (TL) corner of your room and open the TL menu in the Web UI. You must record 5 states for this corner:
+    * **Arrows (⬆️ ⬇️ ⬅️ ➡️):** Click an arrow and stand perfectly still facing that direction for 7 seconds.
+    * **Center Button (🔄):** Click the center icon, and **rotate slowly 2 times in place** while the radar beeps.
+5. Repeat this complete 5-step process for all 4 corners of the room (TL, TR, BL, BR). 
+6. Once all 20 spatial profiles are trained, the red dot on the Web UI will interpolate and track your physical position in real-time.
 
 ### 📍 Hybrid SLAM: Room Mapping
 Use the onboard IMU to draw a digital floor plan of your room.
