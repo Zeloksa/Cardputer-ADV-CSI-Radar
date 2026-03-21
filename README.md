@@ -90,16 +90,14 @@ Use the onboard IMU to draw a digital floor plan of your room.
 ---
 
 ## 🆕 V1.43 Changelog
-* **Smart SLAM Geometry:** Added a mathematical engine to auto-close polygons (undershoot correction), trim 1px overlapping tails (overshoot correction), and aggregate collinear steps into clean walls with single distance measurements.
-* **Zero-Latency UI:** Re-engineered the State Machine to use front-edge detection (`enter_pressed`). Navigation is now instantly responsive with safeguards against phantom double-clicks.
-* **Deep SAFE MODE:** Device now drops to 80MHz, suspends IMU polling, and halts all UI/CSI rendering during charging to ensure a cool, safe power cycle.
-* **Hardware Brightness:** Migrated `[ ]` brightness controls from software redraws to direct Hardware PWM, eliminating SPI screen lag.
-* **Dynamic Max Mode:** UI slot-machine now perfectly syncs and dynamically displays the raw polling rate when `[ H ]` MAX Mode is engaged.
-* **UI/UX Overhaul:** * Rebuilt the `[ i ]` 3-page interactive manual.
-  * Added a stylized 110x110px geometric grid for empty 2D state tracking.
-  * Fixed Painter's Algorithm (Z-Index) overlap issues with text, icons, and dynamic alerts.
-  * Base audio normalized to 30%.
-  * Auto-dimming screen integration upon Web UI initialization.
+* **Total UI/UX Reconstruction:** Every screen has been re-designed from the ground up for better visual depth, improved readability, and professional-grade performance.
+* **Advanced Room Mapping Engine:**
+    * **Wall Length Measurements:** The SLAM logic now automatically calculates and displays the length of each wall ($m$).
+    * **Area Calculation:** Integrated Gauss's area formula (Shoelace algorithm) to provide real-time room size calculation in square meters ($m^2$).
+    * **Smart Geometry:** Added a mathematical engine to auto-close polygons (undershoot correction), trim overlapping tails (overshoot correction), and aggregate collinear steps into clean, single-segment walls.
+* **Zero-Latency Navigation:** Re-engineered the State Machine to use front-edge trigger detection. Interaction is now 100% instant, eliminating the "heavy" feeling of the keyboard and adding protection against phantom double-clicks during state transitions.
+* **UI Detail Refinement:**
+    * Rebuilt the **[ i ]** interactive manual into a comprehensive 3-page guide covering all hidden hotkeys and mode-specific instructions.
 
 ---
 
