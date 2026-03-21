@@ -1,11 +1,11 @@
-![Version](https://img.shields.io/badge/Version-1.42_ADV-blue)
+![Version](https://img.shields.io/badge/Version-1.43-blue)
 ![Hardware](https://img.shields.io/badge/Hardware-Cardputer-orange)
 ![Platform](https://img.shields.io/badge/Platform-M5Stack-red)
 ![License](https://img.shields.io/badge/License-Proprietary-gray)
 [![Boosty](https://img.shields.io/badge/Support-Boosty-orange)](https://boosty.to/zeloksa)
-# 📡 WiFi CSI Radar ADV (V1.42)
+# 📡 WiFi CSI Radar (V1.43)
 
-**Radar V1.42 ADV** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer ADV**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
+**Radar V1.43** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
 
 > [!IMPORTANT]
 > **Source Code Status:** This project is proprietary. The source code is private. 
@@ -17,34 +17,39 @@
 
 * **Dual-Core FreeRTOS Architecture:** Networking and high-speed injection are handled on Core 0, while heavy Math and UI rendering run on Core 1 for zero-lag, real-time sensing.
 * **Ultra-Precise 1D Sensing Core:** The original and most accurate engine. Specifically tuned for high-fidelity motion detection, capable of sensing subtle movements (like breathing or micro-vibrations) through walls.
-* **Hybrid Room Mapping (SLAM):** Integrated logic using the onboard IMU to create a digital layout of your room. This allows for localized tracking within a mapped environment.
-* **Experimental 2D Spatial Profiles**: Support for training up to 21 unique spatial zones.
+* **Hybrid Room Mapping (SLAM) with Smart Geometry:** Integrated IMU logic to create a digital layout of your room. V1.43 introduces an Angle-Based Segment Merging engine that mathematically aggregates collinear steps into perfectly straight walls and automatically trims/closes polygon gaps.
+* **2D Spatial Profiles**: Support for training up to 21 unique spatial zones.
 
 > [!NOTE]
-> 2D Mode is currently in **Active Beta**. Accuracy is being refined, and I am actively looking for algorithmic suggestions and community feedback to improve spatial triangulation.
-* **200+ PPS (Packets Per Second):** Achieving the physical limit of the 2.4GHz Wi-Fi stack. Higher PPS equals higher resolution data for motion analysis.
+> 2D Mode is currently in **Active Beta**. Accuracy is being refined. The system now features a default 110x110px geometric tracking grid if no room is mapped.
 * **External NAT Bypass:** A custom injection engine that routes traffic through external DNS targets to bypass router flood protection and rate-limiting.
-* **ADV Smart Power Management:** Intelligent noise filtering for charging detection (10s verification) and manual wake-up protocols to prevent interference during high-load sensing.
+* **Deep SAFE MODE:** Intelligent power management. When charging, the device drops CPU frequency to 80MHz, suspends IMU polling, and halts all heavy CSI processing to ensure safe, cool, and rapid charging.
 
 ---
 
 ## 🛠 Installation
 1. Open **M5Burner**.
-2. Search for `WiFi CSI Radar ADV` or `Zeloksa`.
-3. Select version **V1.42 ADV**.
+2. Search for `WiFi CSI Radar` or `Zeloksa`.
+3. Select version **V1.43**.
 4. Burn to your M5Stack Cardputer.
 
 ---
 
 ## 🕹 Controls & Usage
-* **[ENTER]**: Toggle Radar / Exit Energy Saving Mode.
-* **[ D ]**: Toggle Web Server & IP Overlay.
-* **[ R ]**: Toggle 1D Graph / 2D Spatial Mode.
-* **[ H ]**: **MAX Mode** (333Hz / 240MHz CPU) / AUTO Mode.
-* **[ , / . ]**: Manual Frequency (Hz) Adjustment.
-* **[ W / S ]**: Volume Control.
-* **[ [ / ] ]**: Screen Brightness.
-* **[ DEL ]**: Factory Reset (Clear Wi-Fi credentials).
+
+* **[ ENTER ]**: Toggle Radar / Start Calibration / Hold to Reset Map
+* **[ i ]**: Open Interactive User Manual (3 Pages)
+* **[ D ]**: Toggle Web Server & IP Overlay
+* **[ R ]**: Switch between 1D Radar / 2D Spatial Mode
+* **[ H ]**: **MAX Mode** (Force 240MHz CPU & Maximum Polling) / AUTO Mode
+* **[ , / . ]**: Manual Frequency (Hz) Adjustment
+* **[ - / = ]**: Volume Control (Base volume normalized to 30%)
+* **[ [ / ] ]**: Hardware Screen Brightness Control
+* **[ ESC / \` ]**: Back / Exit Current Mode
+* **[ DEL ]**: Factory Reset (Clear Wi-Fi credentials, works in Main Menu)
+
+---
+
 ## 📖 Comprehensive User Manual
 
 To get the most accurate readings from the CSI Radar, you must understand how Wi-Fi signals bounce in your environment. Follow these steps for each mode:
@@ -52,9 +57,9 @@ To get the most accurate readings from the CSI Radar, you must understand how Wi
 ### 🎯 1D Mode: High-Precision Motion Detection
 This is the default mode. It acts as an ultra-sensitive invisible tripwire.
 1. **Positioning:** Place the Cardputer on a stable, flat surface. **Do not hold it in your hands.**
-2. **Start Calibration:** Press `[ENTER]`. The screen will show a `Cal: 12s` countdown.
+2. **Start Calibration:** Press `[ENTER]`. The screen will show a 12s countdown.
 3. **The "Ghost" Rule:** Immediately step away from the device and stand perfectly still, or leave the room. The radar needs these 12 seconds to learn the "static baseline" of the empty space.
-4. **Armed State:** Once the countdown disappears, the alarm is armed (`Alm:ON`). Any movement (breathing, walking) will disrupt the CSI baseline, spike the graph, and trigger the alarm.
+4. **Armed State:** Once the countdown disappears, the alarm is armed. Any movement (breathing, walking) will disrupt the CSI baseline, spike the graph, and trigger the alarm.
 
 ### 🗺️ 2D Mode: Spatial Profiles (Active Beta)
 This mode attempts to locate *where* the movement is happening using the Web UI.
@@ -65,29 +70,36 @@ This mode attempts to locate *where* the movement is happening using the Web UI.
     * **Arrows (⬆️ ⬇️ ⬅️ ➡️):** Click an arrow and stand perfectly still facing that direction for 7 seconds.
     * **Center Button (🔄):** Click the center icon, and **rotate slowly 2 times in place** while the radar beeps.
 5. Repeat this complete 5-step process for all 4 corners of the room (TL, TR, BL, BR). 
-6. Once all 20 spatial profiles are trained, the red dot on the Web UI will interpolate and track your physical position in real-time.
+6. Once all 20 spatial profiles are trained, the tracking dot on the Cardputer and Web UI will interpolate and track your physical position in real-time.
 
 ### 📍 Hybrid SLAM: Room Mapping
 Use the onboard IMU to draw a digital floor plan of your room.
-1. In the Web UI (while in 2D mode), click **START ROOM MAPPING**.
+1. Switch to Mapping Mode via the main menu.
 2. **Posture:** Hold the Cardputer perfectly flat against your chest, screen facing outward.
-3. **The Walk:** Walk at a steady, robotic pace. Step firmly on your **HEEL** with each step (the IMU uses the physical shock to count steps). 
+3. **The Walk:** Press `[ENTER]`, then walk at a steady, robotic pace. Step firmly on your **HEEL** with each step (the IMU uses the physical shock to count steps). 
 4. **Turns:** When you reach a corner, stop, turn exactly 90 degrees on the spot, and continue walking.
-5. You will hear a beep for every successfully registered step. Click STOP in the Web UI when you have closed the loop.
+5. You will hear a beep for every successfully registered step. Click STOP in the Web UI (or press `[ENTER]`) when you have closed the loop. The Smart Geometry engine will automatically trim crossing lines and close the perimeter.
 
 > [!WARNING]
 > **Environmental Variables:** Wi-Fi CSI is highly sensitive. Moving furniture, opening doors, or even heavy rain outside can alter the baseline. Always recalibrate the 1D or 2D profiles if the environment changes.
 
 > [!TIP]
-> **MAX Mode** significantly increases detection precision and resolution by hitting 200+ PPS.
+> **MAX Mode** significantly increases detection precision and resolution.
 > *Warning: This mode results in faster battery drain and slight device heating due to high CPU and Wi-Fi load.*
 
 ---
 
-## 🆕 V1.42 ADV Changelog
-* **Improved Charging Logic:** Integrated a 10-second verification timer to eliminate "ghost" charging notifications caused by Wi-Fi power noise.
-* **Manual Wake-up:** Device stays in sleep mode during/after charging until the owner presses **[ENTER]**.
-* **High-Speed Buffer:** Implemented FreeRTOS RingBuffer to prevent packet loss during heavy UI drawing.
+## 🆕 V1.43 Changelog
+* **Smart SLAM Geometry:** Added a mathematical engine to auto-close polygons (undershoot correction), trim 1px overlapping tails (overshoot correction), and aggregate collinear steps into clean walls with single distance measurements.
+* **Zero-Latency UI:** Re-engineered the State Machine to use front-edge detection (`enter_pressed`). Navigation is now instantly responsive with safeguards against phantom double-clicks.
+* **Deep SAFE MODE:** Device now drops to 80MHz, suspends IMU polling, and halts all UI/CSI rendering during charging to ensure a cool, safe power cycle.
+* **Hardware Brightness:** Migrated `[ ]` brightness controls from software redraws to direct Hardware PWM, eliminating SPI screen lag.
+* **Dynamic Max Mode:** UI slot-machine now perfectly syncs and dynamically displays the raw polling rate when `[ H ]` MAX Mode is engaged.
+* **UI/UX Overhaul:** * Rebuilt the `[ i ]` 3-page interactive manual.
+  * Added a stylized 110x110px geometric grid for empty 2D state tracking.
+  * Fixed Painter's Algorithm (Z-Index) overlap issues with text, icons, and dynamic alerts.
+  * Base audio normalized to 30%.
+  * Auto-dimming screen integration upon Web UI initialization.
 
 ---
 
@@ -101,7 +113,7 @@ If you find a bug or have a suggestion for the next version:
 
 ## ☕ Support the Project
 If this tool has been useful for your research or hobbyist projects, consider supporting further development:
-* **[https://boosty.to/zeloksa]**
+* **[https://boosty.to/zeloksa](https://boosty.to/zeloksa)**
 
 ---
-*Created by Zeloksa. Optimized for Cardputer ADV.*
+*Created by Zeloksa. Optimized for Cardputer.*
