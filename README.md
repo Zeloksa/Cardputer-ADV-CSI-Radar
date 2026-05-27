@@ -1,11 +1,12 @@
-![Version](https://img.shields.io/badge/Version-1.43-blue)
+![Version](https://img.shields.io/badge/Version-1.5-blue)
 ![Hardware](https://img.shields.io/badge/Hardware-Cardputer-orange)
 ![Platform](https://img.shields.io/badge/Platform-M5Stack-red)
 ![License](https://img.shields.io/badge/License-Proprietary-gray)
 [![Boosty](https://img.shields.io/badge/Support-Boosty-orange)](https://boosty.to/zeloksa)
-# 📡 WiFi CSI Radar (V1.43)
 
-**Radar V1.43** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
+# 📡 WiFi CSI Radar (V1.5)
+
+**Radar V1.5** is a high-performance Wi-Fi CSI (Channel State Information) sensing tool specifically optimized for the **M5Stack Cardputer**. It utilizes advanced radio-wave analysis to detect motion and spatial presence through walls and obstacles.
 
 > [!IMPORTANT]
 > **Source Code Status:** This project is proprietary. The source code is private. 
@@ -17,11 +18,12 @@
 
 * **Dual-Core FreeRTOS Architecture:** Networking and high-speed injection are handled on Core 0, while heavy Math and UI rendering run on Core 1 for zero-lag, real-time sensing.
 * **Ultra-Precise 1D Sensing Core:** The original and most accurate engine. Specifically tuned for high-fidelity motion detection, capable of sensing subtle movements (like breathing or micro-vibrations) through walls.
-* **Hybrid Room Mapping (SLAM) with Smart Geometry:** Integrated IMU logic to create a digital layout of your room. V1.43 introduces an Angle-Based Segment Merging engine that mathematically aggregates collinear steps into perfectly straight walls and automatically trims/closes polygon gaps.
+* **Hybrid Room Mapping (SLAM) with Smart Geometry:** Integrated IMU logic to create a digital layout of your room. Features an Angle-Based Segment Merging engine that mathematically aggregates collinear steps into perfectly straight walls and automatically trims/closes polygon gaps.
 * **2D Spatial Profiles**: Support for training up to 21 unique spatial zones.
 
 > [!NOTE]
-> 2D Mode is currently in **Active Beta**. Accuracy is being refined. The system now features a default 110x110px geometric tracking grid if no room is mapped.
+> 2D Mode is currently in **Active Beta**. Accuracy is being refined. The system now features an expanded **135x135px** geometric tracking grid if no room is mapped.
+
 * **External NAT Bypass:** A custom injection engine that routes traffic through external DNS targets to bypass router flood protection and rate-limiting.
 * **Deep SAFE MODE:** Intelligent power management. When charging, the device drops CPU frequency to 80MHz, suspends IMU polling, and halts all heavy CSI processing to ensure safe, cool, and rapid charging.
 
@@ -30,7 +32,7 @@
 ## 🛠 Installation
 1. Open **M5Burner**.
 2. Search for `WiFi CSI Radar` or `Zeloksa`.
-3. Select version **V1.43**.
+3. Select version **V1.5**.
 4. Burn to your M5Stack Cardputer.
 
 ---
@@ -46,7 +48,7 @@
 * **[ - / = ]**: Volume Control (Base volume normalized to 30%)
 * **[ [ / ] ]**: Hardware Screen Brightness Control
 * **[ ESC / \` ]**: Back / Exit Current Mode
-* **[ DEL ]**: Factory Reset (Clear Wi-Fi credentials, works in Main Menu)
+* **[ DEL ]**: Factory Reset (Clear Wi-Fi credentials, works in Main Menu & Boot)
 
 ---
 
@@ -74,11 +76,11 @@ This mode attempts to locate *where* the movement is happening using the Web UI.
 
 ### 📍 Hybrid SLAM: Room Mapping
 Use the onboard IMU to draw a digital floor plan of your room.
-1. Switch to Mapping Mode via the main menu.
+1. Switch to Mapping Mode via the main menu. Follow the on-screen instructions.
 2. **Posture:** Hold the Cardputer perfectly flat against your chest, screen facing outward.
 3. **The Walk:** Press `[ENTER]`, then walk at a steady, robotic pace. Step firmly on your **HEEL** with each step (the IMU uses the physical shock to count steps). 
 4. **Turns:** When you reach a corner, stop, turn exactly 90 degrees on the spot, and continue walking.
-5. You will hear a beep for every successfully registered step. Click STOP in the Web UI (or press `[ENTER]`) when you have closed the loop. The Smart Geometry engine will automatically trim crossing lines and close the perimeter.
+5. You will hear a beep for every successfully registered step. Click STOP in the Web UI (or press `[ENTER]`) when you have closed the loop. The Smart Geometry engine will automatically calculate the wall lengths (**m**) and total room area (**m²**).
 
 > [!WARNING]
 > **Environmental Variables:** Wi-Fi CSI is highly sensitive. Moving furniture, opening doors, or even heavy rain outside can alter the baseline. Always recalibrate the 1D or 2D profiles if the environment changes.
@@ -89,15 +91,24 @@ Use the onboard IMU to draw a digital floor plan of your room.
 
 ---
 
-## 🆕 V1.43 Changelog
-* **Total UI/UX Reconstruction:** Every screen has been re-designed from the ground up for better visual depth, improved readability, and professional-grade performance.
-* **Advanced Room Mapping Engine:**
-    * **Wall Length Measurements:** The SLAM logic now automatically calculates and displays the length of each wall ($m$).
-    * **Area Calculation:** Integrated Gauss's area formula (Shoelace algorithm) to provide real-time room size calculation in square meters ($m^2$).
-    * **Smart Geometry:** Added a mathematical engine to auto-close polygons (undershoot correction), trim overlapping tails (overshoot correction), and aggregate collinear steps into clean, single-segment walls.
-* **Zero-Latency Navigation:** Re-engineered the State Machine to use front-edge trigger detection. Interaction is now 100% instant, eliminating the "heavy" feeling of the keyboard and adding protection against phantom double-clicks during state transitions.
-* **UI Detail Refinement:**
-    * Rebuilt the **[ i ]** interactive manual into a comprehensive 3-page guide covering all hidden hotkeys and mode-specific instructions.
+## 🆕 V1.5 Changelog
+
+* **Network & Boot UI Overhaul:**
+    * Completely redesigned the Wi-Fi connection sequence. Added a stylized "Scanning Networks" boot animation and full-screen grid backgrounds.
+    * Introduced a scrollable UI list for nearby Wi-Fi networks (view all available networks, not just the top 4).
+    * Implemented a smooth scrolling text animation (marquee) for long SSIDs during WPA2 key entry.
+    * Redesigned connection error screens ("SYSTEM ALERT", "LINK FAILED") with professional, readable layouts.
+    * Added the ability to press `[ESC]` to back out of the password entry screen and return to the network scan list.
+* **1D Radar Enhancements:**
+    * Replaced the standard 1D drawing logic with immersive "submarine-style" expanding radar wave animations for better visual feedback.
+* **2D & Mapping Improvements:**
+    * Expanded the 2D tracking grid to 135x135 pixels, taking full advantage of the freed vertical screen space.
+    * Added clear, on-screen text instructions directly inside the Room Mapping standby mode so users know exactly how to walk.
+    * Fixed the Web-UI "SWITCH TO 1D/2D" button logic to properly sync and trigger the state machine on the Cardputer.
+* **System & Quality of Life (QoL) Fixes:**
+    * **Removed Auto-Dimming:** The screen no longer forces low brightness when the Web-UI is active. Screen brightness is now fully user-controlled `[ / ]` at all times.
+    * **Reliable Factory Reset:** Fixed the `[DEL]` key logic to ensure a definitive wipe of saved Wi-Fi credentials and a clean reboot. This now works safely from both the Main Menu and the Boot Screen.
+    * **Cleaned up Main Menu:** Removed horizontal separator lines for a sleeker, uninterrupted fullscreen grid appearance.
 
 ---
 
